@@ -12,7 +12,7 @@ variables:
   azureSubscription: '005310d4-d33e-4f70-9d87-fd0838836d69'
   
   # Web app name
-  webAppName: 'Battle Bots'
+  webAppName: BattleBots'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
