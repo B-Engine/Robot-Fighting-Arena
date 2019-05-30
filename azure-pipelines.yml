@@ -9,7 +9,7 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '005310d4-d33e-4f70-9d87-fd0838836d69'
+  azureSubscription: 'Free Trial(eb27a279-5c6a-4d14-ad51-fc350a62a3e1)'
   
   # Web app name
   webAppName: BattleBots'
