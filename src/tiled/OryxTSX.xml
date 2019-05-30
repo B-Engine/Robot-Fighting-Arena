@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="Oryx" tilewidth="24" tileheight="24" tilecount="1435" columns="35">
- <image source="../../../../Imagery/Sprites/Tilesstuff/Oryx.png" width="840" height="984"/>
-</tileset>
