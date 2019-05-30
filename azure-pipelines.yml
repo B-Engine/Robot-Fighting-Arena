@@ -77,6 +77,6 @@ stages:
               azureSubscription: 'Free Trial (eb27a279-5c6a-4d14-ad51-fc350a62a3e1)'
               appType: 'webAppLinux'
               WebAppName: 'BattleBots'
-              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              package: '$(System.ArtifactsDirectory)/drop/$(Build.BuildId).zip'
               RuntimeStack: 'NODE|10.14'
               StartupCommand: 'npm run start'
