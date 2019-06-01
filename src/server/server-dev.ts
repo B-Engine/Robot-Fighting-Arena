@@ -33,22 +33,9 @@ const PORT = process.env.PORT || 8080;
 const server = new http.Server(app);
 const io = socketIO(server);
 
-import world from './map.js';
-
-var world1 = new world(20, 20);
-
-import player from './player.js';
-
-var player1 = new player(0, 10, 10);
-
 io.on('connection', socket => {});
 
 server.listen(PORT, () => {
   console.log(`App listening on http://localhost:${PORT}/`);
   console.log('Press Ctrl+C to quit.');
 });
-
-setInterval(() => {
-  io.emit('map', world1);
-  io.emit('player', player1);
-}, 1000);
