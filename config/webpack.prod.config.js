@@ -5,7 +5,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 module.exports = {
   entry: {
-    main: './src/index.js'
+    main: './src/js/index.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -50,7 +50,7 @@ module.exports = {
       {
         // Loads images into CSS and Javascript files
         test: /\.jpg$/,
-        use: [{loader: "url-loader"}]
+        use: [{ loader: "url-loader" }]
       },
       {
         // Loads CSS into a file when you import it via Javascript

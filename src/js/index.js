@@ -1,6 +1,6 @@
-import './css/style.css'
+import '../css/style.css'
 import io from 'socket.io-client'
-import Atlas from './js/Atlas';
+import Atlas from './Atlas';
 
 // Needed for Hot Module Replacement
 if (typeof (module.hot) !== 'undefined') {
@@ -18,22 +18,22 @@ socket.on('map', (map) => {
   console.log('map')
   canvas.width = map.width * map.tileSize
   canvas.height = map.height * map.tileSize
-    map.tiles.map((row, y) => {
-      row.map((tile, x) => {
-        atlas.drawTile(
-          tile,
-          x,
-          y
-        )
-      })
+  map.tiles.map((row, y) => {
+    row.map((tile, x) => {
+      atlas.drawTile(
+        tile,
+        x,
+        y
+      )
     })
+  })
 })
 
 socket.on('player', (player) => {
-    atlas.drawCharacter(
-      player.index,
-      player.x,
-      player.y
-    )
+  atlas.drawCharacter(
+    player.index,
+    player.x,
+    player.y
+  )
 })
 

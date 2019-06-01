@@ -44,7 +44,7 @@ var player1 = new player(0, 10, 10);
 io.on('connection', socket => {});
 
 server.listen(PORT, () => {
-  console.log(`App listening to ${PORT}....`);
+  console.log(`App listening on http://localhost:${PORT}/`);
   console.log('Press Ctrl+C to quit.');
 });
 
