@@ -1,17 +1,19 @@
 const path = require('path')
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
+
+const rootDir = path.resolve(__dirname, "../");
 module.exports = (env, argv) => {
   const SERVER_PATH = (argv.mode === 'production') ?
-    './src/server/server-prod.js' :
-    './src/server/server-dev.js'
-return ({
+    path.resolve(rootDir, './src/server/server-prod.ts') :
+    path.resolve(rootDir, './src/server/server-dev.ts')
+  return ({
     entry: {
       server: SERVER_PATH,
     },
     output: {
-      path: path.join(__dirname, 'dist'),
-      publicPath: '/',
+      path: path.resolve(rootDir, './dist'),
+      publicPath: path.resolve(rootDir, './dist'),
       filename: '[name].js'
     },
     target: 'node',
@@ -25,7 +27,7 @@ return ({
       rules: [
         {
           // Transpiles ES6-8 into ES5
-          test: /\.js$/,
+          test: /\.(t|j)s$/,
           exclude: /node_modules/,
           use: {
             loader: "babel-loader"
