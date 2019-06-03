@@ -14,9 +14,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "*": ["./src/*", "./assets/*"]
+      "*": ["./client/*", "./server/*", "./assets/*"]
     }
   },
-  "include": ["src", "assets"],
+  "include": ["server", "client", "assets"],
   "exclude": ["node_modules", "config"]
 }

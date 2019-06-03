@@ -1,73 +1,73 @@
 const path = require("path")
+const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-module.exports = {
-  entry: {
-    main: './src/js/index.js'
-  },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/',
-    filename: '[name].js'
-  },
-  target: 'web',
-  devtool: '#source-map',
-  // Webpack 4 does not have a CSS minifier, although
-  // Webpack 5 will likely come with one
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true // set to true if you want JS source maps
-      }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
-  },
-  module: {
-    rules: [
-      {
-        // Transpiles ES6-8 into ES5
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
-      },
-      {
-        // Loads the javacript into html template provided.
-        // Entry point is set below in HtmlWebPackPlugin in Plugins 
-        test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-            options: { minimize: true }
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const rootDir = path.resolve(__dirname, "../").split("/dist")[0];
+module.exports = (env) => {
+  return {
+    entry: {
+      main: path.resolve(rootDir, './client/js/index.js'),
+    },
+    output: {
+      path: path.join(rootDir, './dist/client'),
+      publicPath: '/',
+      filename: '[name].[hash].js'
+    },
+    mode: "production",
+    target: 'web',
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          cache: true,
+          parallel: true
+        }),
+        new OptimizeCSSAssetsPlugin({})
+      ]
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(j|t)s$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader"
           }
-        ]
-      },
-      {
-        // Loads images into CSS and Javascript files
-        test: /\.jpg$/,
-        use: [{ loader: "url-loader" }]
-      },
-      {
-        // Loads CSS into a file when you import it via Javascript
-        // Rules are set in MiniCssExtractPlugin
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      },
+        },
+        {
+          test: /\.html$/,
+          use: [
+            {
+              loader: "html-loader",
+              options: { minimize: true }
+            }
+          ]
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
+        },
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          use: ['file-loader']
+        }
+      ]
+    },
+    plugins: [
+      new CleanWebpackPlugin(),
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        },
+      }),
+      new HtmlWebPackPlugin({
+        template: path.resolve(rootDir, './client/html/index.html'),
+        filename: path.resolve(rootDir, './dist/client/index.html'),
+        excludeChunks: ['server'],
+        hash: true
+      })
     ]
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: "./src/html/index.html",
-      filename: "./index.html"
-    }),
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    })
-  ]
+  }
 }

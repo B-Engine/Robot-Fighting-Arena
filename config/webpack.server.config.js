@@ -4,16 +4,14 @@ const nodeExternals = require('webpack-node-externals')
 
 const rootDir = path.resolve(__dirname, "../");
 module.exports = (env, argv) => {
-  const SERVER_PATH = (argv.mode === 'production') ?
-    path.resolve(rootDir, './src/server/server-prod.ts') :
-    path.resolve(rootDir, './src/server/server-dev.ts')
+  const SERVER_PATH = path.resolve(rootDir, './server/index.ts');
   return ({
     entry: {
       server: SERVER_PATH,
     },
     output: {
-      path: path.resolve(rootDir, './dist'),
-      publicPath: path.resolve(rootDir, './dist'),
+      path: path.resolve(rootDir, './dist/server'),
+      publicPath: path.resolve(rootDir, './dist/server'),
       filename: '[name].js'
     },
     target: 'node',
@@ -34,6 +32,13 @@ module.exports = (env, argv) => {
           }
         }
       ]
-    }
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        },
+      }),
+    ]
   })
 }
