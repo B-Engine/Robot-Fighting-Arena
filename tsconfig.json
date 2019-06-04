@@ -12,9 +12,12 @@
     "strict": true,
     // Import non-ES modules as default imports.
     "esModuleInterop": true,
+    "jsx": "react",
     "baseUrl": "./",
     "paths": {
-      "*": ["./client/*", "./server/*", "./assets/*"]
+      "client/*": ["./client/*"],
+      "server/*": ["./server/*"],
+      "assets/*": ["./assets/*"]
     }
   },
   "include": ["server", "client", "assets"],

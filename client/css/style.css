@@ -1,8 +1,12 @@
-h1, h2, h3, h4, h5, p {
-  font-family: helvetica;
-  color: #3e3e3e;
+@font-face {
+  font-family: 'checkbook';
+  src: url('../../assets/checkbook.ttf') format('truetype');
 }
-.description {
-  font-size: 14px;
-  color: #9e9e9e;
+
+* {
+  font-family: checkbook;
+  font-size: 28px;
+  color: #ffe900;
+  background-color: #00000c;
+  text-shadow: #000 0px 0px 2px;
 }
