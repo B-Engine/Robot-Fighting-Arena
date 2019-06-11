@@ -21,6 +21,13 @@ module.exports = (env, argv) => {
       __filename: false,  // and __filename return blank or /
     },
     externals: [nodeExternals()], // Need this to avoid error when working with Express
+    resolve: {
+    extensions: [".js", ".ts", ".tsx"],
+    alias: {
+      server: path.resolve(rootDir, 'server/'),
+      assets: path.resolve(rootDir, "assets/")
+    }
+  },
     module: {
       rules: [
         {
