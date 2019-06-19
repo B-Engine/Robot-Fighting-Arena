@@ -2,7 +2,6 @@ import path from 'path';
 import express from 'express';
 import http from 'http';
 import socketIO from 'socket.io';
-import { WEAPONS, MODIFIERS } from 'server/Types';
 
 const app = express();
 const DIST_DIR = path.resolve(__dirname, '../../dist/client/');
@@ -49,17 +48,19 @@ const server = new http.Server(app);
 const io = socketIO(server);
 
 io.on('connection', strawberry => {
-  console.log(strawberry.json + " connected");
+  console.log(strawberry.json + ' connected');
   strawberry.on('createpart', () => {
-    console.log("received createpart");
-    strawberry.emit("newpart", {name: MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)] + " " + WEAPONS[Math.floor(Math.random() * WEAPONS.length)]});
-  })
+    console.log('received createpart');
+    strawberry.emit('newpart', {
+      name:
+        MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)] +
+        ' ' +
+        WEAPONS[Math.floor(Math.random() * WEAPONS.length)]
+    });
+  });
 });
 
-
-
-
-console.log("I should start hearing createpart");
+console.log('I should start hearing createpart');
 
 server.listen(PORT, () => {
   console.log(`App listening on http://localhost:${PORT}/`);
