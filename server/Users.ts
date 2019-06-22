@@ -2,8 +2,8 @@ import { Part } from './Parts';
 
 interface User {
   Name: string;
-  passwordHash: string;
   Parts: Part[];
+  version: string;
 }
 
-const users: { [name: string]: {} };
+const users: { [name: string]: User } = {};
