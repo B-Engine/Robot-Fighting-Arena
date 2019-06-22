@@ -44,22 +44,24 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 80;
 const server = new http.Server(app);
 const io = socketIO(server);
 
 io.on('connection', strawberry => {
-  console.log(strawberry.json + " connected");
+  console.log(strawberry.json + ' connected');
   strawberry.on('createpart', () => {
-    console.log("received createpart");
-    strawberry.emit("newpart", {name: MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)] + " " + WEAPONS[Math.floor(Math.random() * WEAPONS.length)]});
-  })
+    console.log('received createpart');
+    strawberry.emit('newpart', {
+      name:
+        MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)] +
+        ' ' +
+        WEAPONS[Math.floor(Math.random() * WEAPONS.length)]
+    });
+  });
 });
 
-
-
-
-console.log("I should start hearing createpart");
+console.log('I should start hearing createpart');
 
 server.listen(PORT, () => {
   console.log(`App listening on http://localhost:${PORT}/`);
