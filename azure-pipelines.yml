@@ -33,7 +33,7 @@ stages:
 
           - script: |
               npm install
-              npm run buildDev --if-present
+              npm run buildProd --if-present
               npm run test --if-present
             displayName: 'npm install, build and test'
 
