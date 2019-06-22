@@ -5,7 +5,7 @@ import socketIO from 'socket.io';
 import { WEAPONS, MODIFIERS } from 'server/Types';
 
 const app = express();
-const DIST_DIR = path.resolve(__dirname, '../../dist/client/');
+const DIST_DIR = path.resolve(__dirname, '../dist/client/');
 const HTML_FILE = path.join(DIST_DIR, 'index.html');
 console.log(process.env.NODE_ENV);
 

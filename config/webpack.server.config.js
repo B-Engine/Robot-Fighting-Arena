@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
+const CopyPlugin = require("copy-webpack-plugin");
 
 const rootDir = path.resolve(__dirname, "../");
 module.exports = (env, argv) => {
@@ -10,8 +11,8 @@ module.exports = (env, argv) => {
       server: SERVER_PATH,
     },
     output: {
-      path: path.resolve(rootDir, './dist/server'),
-      publicPath: path.resolve(rootDir, './dist/server'),
+      path: path.resolve(rootDir, './dist'),
+      publicPath: path.resolve(rootDir, './dist'),
       filename: '[name].js'
     },
     target: 'node',
@@ -22,12 +23,12 @@ module.exports = (env, argv) => {
     },
     externals: [nodeExternals()], // Need this to avoid error when working with Express
     resolve: {
-    extensions: [".js", ".ts", ".tsx"],
-    alias: {
-      server: path.resolve(rootDir, 'server/'),
-      assets: path.resolve(rootDir, "assets/")
-    }
-  },
+      extensions: [".js", ".ts", ".tsx"],
+      alias: {
+        server: path.resolve(rootDir, 'server/'),
+        assets: path.resolve(rootDir, "assets/")
+      }
+    },
     module: {
       rules: [
         {
@@ -46,6 +47,9 @@ module.exports = (env, argv) => {
           NODE_ENV: JSON.stringify(argv.mode),
         },
       }),
+      new CopyPlugin([
+        { from: path.resolve(rootDir, "hostconfig/web.config"), to: path.resolve(rootDir, "dist/web.config") },
+      ]),
     ]
   })
 }

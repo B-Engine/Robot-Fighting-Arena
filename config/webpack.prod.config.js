@@ -29,18 +29,18 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(j|t)s$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        loader: 'babel-loader'
       },
       {
+        // Loads the javacript into html template provided.
+        // Entry point is set below in HtmlWebPackPlugin in Plugins
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader",
-            options: { minimize: true }
+            loader: 'html-loader'
+            //options: { minimize: true }
           }
         ]
       },
@@ -49,10 +49,17 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|gif|ttf)$/,
         use: ['file-loader']
-      }
+      },
     ]
+  },
+  resolve: {
+    extensions: [".js", ".ts", ".tsx"],
+    alias: {
+      client: path.resolve(rootDir, 'client/'),
+      assets: path.resolve(rootDir, "assets/")
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),
