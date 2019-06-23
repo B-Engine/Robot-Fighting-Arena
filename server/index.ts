@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import http from 'http';
 import socketIO from 'socket.io';
-import { WEAPONS, MODIFIERS } from 'server/Types';
+import { MODIFIERS, WEAPONS } from './WordLists';
 
 const app = express();
 const DIST_DIR = path.resolve(__dirname, '../dist/client/');
@@ -48,11 +48,11 @@ const PORT = process.env.PORT || 8080;
 const server = new http.Server(app);
 const io = socketIO(server);
 
-io.on('connection', strawberry => {
-  console.log(strawberry.json + ' connected');
-  strawberry.on('createpart', () => {
+io.on('connection', socket => {
+  console.log(socket.json + ' connected');
+  socket.on('createpart', () => {
     console.log('received createpart');
-    strawberry.emit('newpart', {
+    socket.emit('newpart', {
       name:
         MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)] +
         ' ' +
