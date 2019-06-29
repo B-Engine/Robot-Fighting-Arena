@@ -38,13 +38,22 @@ stages:
             displayName: 'npm install, build and test'
 
           - task: ArchiveFiles@2
-            displayName: 'Archive files'
+            displayName: 'Archive dist'
             inputs:
               rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist'
               includeRootFolder: false
               archiveType: zip
               archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
               replaceExistingArchive: true
+
+          - task: ArchiveFiles@2
+            displayName: 'Add package.json to artifact'
+            inputs:
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/package.json'
+              includeRootFolder: false
+              archiveType: zip
+              archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+              replaceExistingArchive: false
 
           - task: PublishPipelineArtifact@0
             displayName: 'Publish pipeline artifacts'
