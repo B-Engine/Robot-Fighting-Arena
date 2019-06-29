@@ -55,6 +55,15 @@ stages:
               archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
               replaceExistingArchive: false
 
+          - task: ArchiveFiles@2
+            displayName: 'Add process.json to artifact'
+            inputs:
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/process.json'
+              includeRootFolder: false
+              archiveType: zip
+              archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+              replaceExistingArchive: false
+
           - task: PublishPipelineArtifact@0
             displayName: 'Publish pipeline artifacts'
             inputs:
