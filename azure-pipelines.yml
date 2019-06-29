@@ -41,7 +41,7 @@ stages:
             displayName: 'Archive dist'
             inputs:
               rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist'
-              includeRootFolder: false
+              includeRootFolder: true
               archiveType: zip
               archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
               replaceExistingArchive: true
