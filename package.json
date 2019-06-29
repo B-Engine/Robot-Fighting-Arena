@@ -5,8 +5,8 @@
     "buildDev": "webpack --mode development --config ./config/webpack.dev.config.js && npm run build-server -- --mode development",
     "buildProd": "webpack --mode production --config ./config/webpack.prod.config.js && npm run build-server -- --mode production",
     "build-server": "webpack --config ./config/webpack.server.config.js",
-    "start": "npm run buildDev && npm run serve",
-    "serve": "node ./dist/server.js"
+    "start": "npm run buildDev && npm run devServe",
+    "devServe": "node ./dist/server.js"
   },
   "dependencies": {
     "azure-storage": "^2.10.3",
