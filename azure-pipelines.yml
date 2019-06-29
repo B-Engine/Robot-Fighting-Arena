@@ -8,7 +8,7 @@ trigger:
 
 variables:
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'Free Trial(eb27a279-5c6a-4d14-ad51-fc350a62a3e1)'
+  azureSubscription: 'Lucas Subscription'
 
   # Web app name
   webAppName: BattleBots'
@@ -50,32 +50,3 @@ stages:
             displayName: 'Publish pipeline artifacts'
             inputs:
               targetPath: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-
-  - stage: Deploy
-    displayName: Deploy stage
-    dependsOn: Build
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    jobs:
-      - deployment: Deploy
-        displayName: Deploy
-        environment: 'development'
-        pool:
-          vmImage: $(vmImageName)
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-                - task: DownloadPipelineArtifact@1
-                  displayName: 'Download Pipeline Artifact'
-                  inputs:
-                    buildType: 'current'
-                - task: AzureRmWebAppDeployment@4
-                  displayName: 'Azure Web App Deploy: Battle Bots'
-                  inputs:
-                    ConnectionType: 'AzureRM'
-                    azureSubscription: 'Free Trial (eb27a279-5c6a-4d14-ad51-fc350a62a3e1)'
-                    appType: 'webAppLinux'
-                    WebAppName: 'BattleBots'
-                    package: '$(System.ArtifactsDirectory)/drop/$(Build.BuildId).zip'
-                    RuntimeStack: 'NODE|10.14'
-                    StartupCommand: 'npm run serve'
