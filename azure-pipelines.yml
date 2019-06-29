@@ -41,7 +41,7 @@ stages:
             displayName: 'Archive dist'
             inputs:
               rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist'
-              includeRootFolder: true
+              includeRootFolder: false
               archiveType: zip
               archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
               replaceExistingArchive: true
@@ -50,6 +50,15 @@ stages:
             displayName: 'Add package.json to artifact'
             inputs:
               rootFolderOrFile: '$(System.DefaultWorkingDirectory)/package.json'
+              includeRootFolder: false
+              archiveType: zip
+              archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+              replaceExistingArchive: false
+
+          - task: ArchiveFiles@2
+            displayName: 'Add process.json to artifact'
+            inputs:
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/process.json'
               includeRootFolder: false
               archiveType: zip
               archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
