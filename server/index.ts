@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import http from 'http';
 import socketIO from 'socket.io';
-import { MODIFIERS, WEAPONS } from './WordLists';
+import { MODIFIERS, WEAPONS } from './Parts/WordLists';
 
 const app = express();
 const DIST_DIR = path.resolve(__dirname, '../dist/client/');

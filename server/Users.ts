@@ -1,8 +1,8 @@
-import { Part } from './Parts';
+import { GamePart } from './Parts';
 
 interface User {
   Name: string;
-  Parts: Part[];
+  Parts: GamePart[];
   version: string;
 }
 
