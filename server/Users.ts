@@ -1,9 +1,10 @@
-import { GamePart } from './Parts';
+import { IPart } from "./Parts/Types";
+import { ObjectDictionary } from "./Utilities";
+import { IGameEntity } from "./Types/IGameEntity";
 
-interface User {
+export interface IUser extends IGameEntity {
   Name: string;
-  Parts: GamePart[];
-  version: string;
+  Parts: IPart[]
 }
 
-const users: { [name: string]: User } = {};
+const users = new ObjectDictionary<IUser>([]);

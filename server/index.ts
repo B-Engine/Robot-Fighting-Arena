@@ -62,8 +62,6 @@ io.on('connection', socket => {
   });
 });
 
-console.log('I should start hearing createpart');
-
 server.listen(PORT, () => {
   console.log(`App listening on http://localhost:${PORT}/`);
   console.log('Press Ctrl+C to quit.');

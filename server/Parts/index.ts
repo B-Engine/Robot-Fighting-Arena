@@ -1,13 +1,9 @@
-import { Part, PartType, EffectType, TargetType, Behavior } from './Types';
+import { IPartDefinition, PartType, EffectType, TargetType } from './Types';
+import { ObjectDictionary } from 'server/Utilities';
 
-interface Id {
-  Id: string;
-}
-
-type TransitionalPart = Omit<Part, 'Id'>;
-
-const DefinedParts: TransitionalPart[] = [
+const DefinedParts: IPartDefinition[] = [
   {
+    Id: 'PU-00',
     Name: 'Power Cell',
     Type: PartType.Utility,
     Health: 5,
@@ -22,6 +18,7 @@ const DefinedParts: TransitionalPart[] = [
     ]
   },
   {
+    Id: 'PW-01',
     Name: 'Gun',
     Type: PartType.Weapon,
     Health: 6,
@@ -30,16 +27,13 @@ const DefinedParts: TransitionalPart[] = [
       {
         Target: TargetType.Enemy,
         Effect: EffectType.Pierce,
-        Value: 2
-      },
-      {
-        Target: TargetType.Self,
-        Effect: EffectType.Power,
-        Value: -1
+        Value: 2,
+        Cost: 1
       }
     ]
   },
   {
+    Id: 'PW-02',
     Name: 'Blade',
     Type: PartType.Weapon,
     Health: 6,
@@ -48,17 +42,14 @@ const DefinedParts: TransitionalPart[] = [
       {
         Target: TargetType.Enemy,
         Effect: EffectType.Cut,
-        Value: 1
-      },
-      {
-        Target: TargetType.Self,
-        Effect: EffectType.Power,
-        Value: -1
+        Value: 1,
+        Cost: 1
       }
     ]
   },
   {
-    Name: 'Thrower',
+    Id: "PW-03",
+    Name: "Thrower",
     Type: PartType.Weapon,
     Health: 6,
     Speed: 3,
@@ -66,21 +57,14 @@ const DefinedParts: TransitionalPart[] = [
       {
         Target: TargetType.Enemy,
         Effect: EffectType.Impact,
-        Value: 3
-      },
-      {
-        Target: TargetType.Self,
-        Effect: EffectType.Power,
-        Value: -1
+        Value: 3,
+        Cost: 1
       }
     ]
   }
 ];
 
-export const Parts: Part[] = DefinedParts.map((part, index) => ({
-  ...part,
-  Id: `P_${index}`
-}));
+export const PartsDefinitions = new ObjectDictionary(DefinedParts);
 
 /*
 Power Cell:
@@ -106,7 +90,7 @@ Thrower:
 */
 
 /*TODO: Modifiers
- * 
+ *
 Sharp:
   Damage: 1
   Damage Type: Cut
