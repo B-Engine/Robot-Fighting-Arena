@@ -3,14 +3,15 @@ import express from 'express';
 import http from 'http';
 import socketIO from 'socket.io';
 import { MODIFIERS, WEAPONS } from './Parts/WordLists';
+import { Logger } from './Logger';
 
 const app = express();
 const DIST_DIR = path.resolve(__dirname, '../dist/client/');
 const HTML_FILE = path.join(DIST_DIR, 'index.html');
-console.log(process.env.NODE_ENV);
+Logger.log(process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === 'development') {
-  console.log('I AM IN DEV MODE');
+  Logger.log('I AM IN DEV MODE');
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -49,10 +50,8 @@ const server = new http.Server(app);
 const io = socketIO(server);
 
 io.on('connection', socket => {
-  console.log(socket.json + ' connected');
-  console.log(socket.client.request.headers);
+  const userId = socket.client.request.headers["x-ms-client-principal-id"] || "testid";
   socket.on('createpart', () => {
-    console.log('received createpart');
     socket.emit('newpart', {
       name:
         MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)] +
@@ -63,6 +62,6 @@ io.on('connection', socket => {
 });
 
 server.listen(PORT, () => {
-  console.log(`App listening on http://localhost:${PORT}/`);
-  console.log('Press Ctrl+C to quit.');
+  Logger.log(`App listening on http://localhost:${PORT}/`);
+  Logger.log('Press Ctrl+C to quit.');
 });
