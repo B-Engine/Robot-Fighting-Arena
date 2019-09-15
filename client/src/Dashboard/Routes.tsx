@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Dashboard } from './Dashboard';
-import { Garage } from '../Garage';
-import { Arena } from '../Arena/Arena';
-import { Market } from '../Market';
+import { Garage } from '../App/Garage';
+import { Arena } from '../App/Arena';
+import { Market } from '../App/Market';
 
 export const Routes: FunctionComponent = props => (
   <Switch>

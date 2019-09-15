@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'client/src/Components/Link';
 
 export const Arena: FunctionComponent = props => {
   return (

@@ -5,7 +5,7 @@
     "buildDev": "webpack --mode development --config ./config/webpack.dev.config.js && npm run build-server -- --mode development",
     "buildProd": "webpack --mode production --config ./config/webpack.prod.config.js && npm run build-server -- --mode production",
     "build-server": "webpack --config ./config/webpack.server.config.js",
-    "start": "npm install --production && node ./dist/server.js",
+    "start": "node ./dist/server.js",
     "devServe": "npm run buildDev && npm start"
   },
   "dependencies": {
