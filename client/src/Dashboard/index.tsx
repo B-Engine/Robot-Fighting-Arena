@@ -1,12 +1,14 @@
 import React, { FunctionComponent, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Routes } from './Routes';
+import { Routes } from 'client/src/Dashboard/Routes';
 import { Sidebar } from './Sidebar';
 
 const ContentArea = styled.div`
   position: relative;
   display: flex;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export const Dashboard: FunctionComponent = props => {
