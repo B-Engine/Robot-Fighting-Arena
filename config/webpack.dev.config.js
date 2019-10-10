@@ -58,7 +58,8 @@ module.exports = {
     extensions: [".js", ".ts", ".tsx"],
     alias: {
       client: path.resolve(rootDir, 'client/'),
-      assets: path.resolve(rootDir, "assets/")
+      assets: path.resolve(rootDir, "assets/"),
+      shared: path.resolve(rootDir, "shared/")
     }
   },
   plugins: [

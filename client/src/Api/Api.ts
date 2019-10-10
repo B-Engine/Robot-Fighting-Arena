@@ -1,23 +1,22 @@
 import openSocket from 'socket.io-client';
 import { useEffect } from 'react';
-const socket = openSocket();
+import { Entity } from 'shared/Utilities/Entity';
+import { EntityType } from 'shared/Utilities/EntityTypes';
+export const socket = openSocket();
 
-export interface IPart {
-  name: string;
-}
-
-export function useSubcribeToNewPart(
-  callback: (part: IPart) => void,
-  ...args: any[]
+export function useSubscribe<
+  Type extends EntityType,
+  EntityData,
+  EntityVersion extends number
+>(
+  event: string,
+  callback: (entity: Entity<Type, EntityData, EntityVersion>) => void,
+  ...dependencies: any[]
 ) {
   useEffect(() => {
-    socket.on('newpart', callback);
+    socket.on(event, callback);
     return () => {
-      socket.off('newpart', callback);
+      socket.off(event, callback);
     };
-  }, [callback, ...args]);
-}
-
-export function createPart() {
-  socket.emit('createpart');
+  }, [event, callback, ...dependencies]);
 }

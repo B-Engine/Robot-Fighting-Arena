@@ -17,9 +17,10 @@
     "paths": {
       "client/*": ["./client/*"],
       "server/*": ["./server/*"],
-      "assets/*": ["./assets/*"]
+      "assets/*": ["./assets/*"],
+      "shared/*": ["./shared/*"]
     }
   },
-  "include": ["server", "client", "assets"],
+  "include": ["server", "client", "assets", "shared"],
   "exclude": ["node_modules", "config"]
 }

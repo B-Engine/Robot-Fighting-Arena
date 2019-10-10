@@ -26,7 +26,8 @@ module.exports = (env, argv) => {
       extensions: [".js", ".ts", ".tsx"],
       alias: {
         server: path.resolve(rootDir, 'server/'),
-        assets: path.resolve(rootDir, "assets/")
+        assets: path.resolve(rootDir, "assets/"),
+        shared: path.resolve(rootDir, "shared/")
       }
     },
     module: {

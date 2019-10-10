@@ -2,8 +2,13 @@ import path from 'path';
 import express from 'express';
 import http from 'http';
 import socketIO from 'socket.io';
-import { MODIFIERS, WEAPONS } from './Parts/WordLists';
 import { Logger } from './Logger';
+import { InMemoryUserRepo } from './UserRepo';
+import { Entity } from '../shared/Utilities/Entity';
+import { EntityType } from '../shared/Utilities/EntityTypes';
+import { Chassis } from './Components/DefinedChassis';
+import { Components } from './Components/DefinedComponents';
+import { User } from 'shared/UserTypes';
 
 const app = express();
 const DIST_DIR = path.resolve(__dirname, '../dist/client/');
@@ -48,16 +53,37 @@ if (process.env.NODE_ENV === 'development') {
 const PORT = process.env.PORT || 8080;
 const server = new http.Server(app);
 const io = socketIO(server);
+const userRepo = new InMemoryUserRepo();
 
 io.on('connection', socket => {
-  const userId = socket.client.request.headers["x-ms-client-principal-id"] || "testid";
-  socket.on('createpart', () => {
-    socket.emit('newpart', {
-      name:
-        MODIFIERS[Math.floor(Math.random() * MODIFIERS.length)] +
-        ' ' +
-        WEAPONS[Math.floor(Math.random() * WEAPONS.length)]
+  const userId =
+    socket.client.request.headers['x-ms-client-principal-id'] || 'testid';
+  socket.on('getUserData', response => response(userRepo.getUser(userId)));
+  socket.on('createNewUser', response => {
+    const user: User = {
+      Id: userId,
+      Type: EntityType.User,
+      Data: {
+        chassis: ['CH_0', 'CH_1', 'CH_2'],
+        components: ['PA_0', 'PA_1', 'PA_2', 'PA_3']
+      },
+      Version: 0
+    };
+
+    response(userRepo.addUser(user));
+  });
+  socket.on('getComponentData', (id: string, response) => {
+    response(Components.find(component => component.Id === id));
+  });
+  socket.on('getChassisData', (id: string, response) => {
+    console.log(`finding chassis ${id}`);
+    console.log(JSON.stringify(Chassis));
+    const result = Chassis.find(chassis => {
+      console.log(`${chassis.Id} compared to ${id}`);
+      return chassis.Id === id;
     });
+    console.log(`Result: ${JSON.stringify(result)}`);
+    response(result);
   });
 });
 
