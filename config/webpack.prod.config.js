@@ -17,15 +17,15 @@ module.exports = {
   },
   mode: "production",
   target: 'web',
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true
-      }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
-  },
+  // optimization: {
+  //   minimizer: [
+  //     new UglifyJsPlugin({
+  //       cache: true,
+  //       parallel: true
+  //     }),
+  //     new OptimizeCSSAssetsPlugin({})
+  //   ]
+  // },
   module: {
     rules: [
       {
